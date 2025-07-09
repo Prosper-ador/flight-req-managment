@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://<host>:<port>/<database>
+    username: <your-db-username>
+    password: <your-db-password>
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  security:
+    jwt:
+      secret: <your-jwt-secret>
+      expiration: 86400000
+server:
+  port: 8080
+logging:
+  level:
+    com.skywings: DEBUG
+    org.springframework: INFO
