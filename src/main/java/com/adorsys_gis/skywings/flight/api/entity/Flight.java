@@ -1,5 +1,6 @@
 package com.adorsys_gis.skywings.flight.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -42,6 +43,7 @@ public class Flight {
     private BigDecimal price;
 
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Ticket> tickets = new ArrayList<>();
 
     // Getters and Setters
