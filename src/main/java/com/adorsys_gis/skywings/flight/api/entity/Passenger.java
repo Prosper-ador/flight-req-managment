@@ -1,6 +1,8 @@
 package com.adorsys_gis.skywings.flight.api.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +13,16 @@ public class Passenger {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "First name is mandatory")
     @Column(nullable = false)
     private String firstName;
 
+    @NotBlank(message = "Last name is mandatory")
     @Column(nullable = false)
     private String lastName;
 
+    @Email(message = "Email should be valid")
+    @NotBlank(message = "Email is mandatory")
     @Column(nullable = false, unique = true)
     private String email;
 
