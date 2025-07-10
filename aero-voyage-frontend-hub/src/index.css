@@ -1,0 +1,238 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Enhanced design system with travel-inspired colors and animations */
+
+@layer base {
+  :root {
+    /* Travel-inspired color palette */
+    --background: 220 13% 97%;
+    --foreground: 215 16% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 16% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 16% 15%;
+
+    /* Sky blues and aviation theme */
+    --primary: 214 84% 56%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 210 40% 95%;
+    --secondary-foreground: 215 16% 15%;
+
+    --muted: 210 40% 95%;
+    --muted-foreground: 215 16% 46%;
+
+    --accent: 214 76% 88%;
+    --accent-foreground: 215 16% 15%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 214 84% 56%;
+
+    --radius: 0.75rem;
+
+    /* Travel theme colors */
+    --sky-blue: 214 84% 56%;
+    --ocean-blue: 207 90% 54%;
+    --sunset-orange: 25 95% 53%;
+    --golden-sand: 45 93% 47%;
+    --forest-green: 142 76% 36%;
+    --travel-purple: 262 83% 58%;
+
+    /* Sidebar colors */
+    --sidebar-background: 220 13% 99%;
+    --sidebar-foreground: 215 16% 20%;
+    --sidebar-primary: 214 84% 56%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 214 76% 95%;
+    --sidebar-accent-foreground: 215 16% 15%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 214 84% 56%;
+  }
+
+  .dark {
+    --background: 222 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 214 84% 56%;
+    --primary-foreground: 222 84% 4.9%;
+
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 217 32% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 214 84% 56%;
+
+    --sidebar-background: 222 84% 4.9%;
+    --sidebar-foreground: 210 40% 90%;
+    --sidebar-primary: 214 84% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 32% 17%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 32% 17%;
+    --sidebar-ring: 214 84% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Glass morphism effects */
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Travel-themed gradients */
+  .gradient-sky {
+    background: linear-gradient(135deg, hsl(214, 84%, 70%) 0%, hsl(207, 90%, 64%) 100%);
+  }
+
+  .gradient-sunset {
+    background: linear-gradient(135deg, hsl(25, 95%, 63%) 0%, hsl(45, 93%, 57%) 100%);
+  }
+
+  .gradient-ocean {
+    background: linear-gradient(135deg, hsl(207, 90%, 54%) 0%, hsl(214, 84%, 56%) 100%);
+  }
+
+  /* Animations */
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out;
+  }
+
+  /* Hover effects */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Travel card styles */
+  .travel-card {
+    @apply bg-card/80 dark:bg-card/80 border border-border rounded-xl p-6 hover-lift transition-all duration-300 backdrop-blur-sm;
+  }
+
+  .travel-card:hover {
+    @apply shadow-lg border-primary/20;
+  }
+}
+
+@layer utilities {
+  /* Custom animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Travel-specific utilities */
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(214, 84%, 56%), hsl(207, 90%, 54%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-travel-pattern {
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(214, 84%, 56%, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(207, 90%, 54%, 0.1) 0%, transparent 50%);
+  }
+}
+
+/* Font imports for better typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
