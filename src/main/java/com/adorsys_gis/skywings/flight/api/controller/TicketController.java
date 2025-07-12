@@ -5,6 +5,8 @@ import com.adorsys_gis.skywings.flight.api.service.TicketService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,22 +79,20 @@ public class TicketController {
     }
 }
 
+@Setter
+@Getter
 class TicketRequest {
     @NotNull(message = "Passenger ID is mandatory")
     private Long passengerId;
     @NotNull(message = "Flight ID is mandatory")
     private Long flightId;
 
-    public Long getPassengerId() { return passengerId; }
-    public void setPassengerId(Long passengerId) { this.passengerId = passengerId; }
-    public Long getFlightId() { return flightId; }
-    public void setFlightId(Long flightId) { this.flightId = flightId; }
 }
 
+@Setter
+@Getter
 class TicketUpdateRequest {
     @NotBlank(message = "Status is mandatory")
     private String status;
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
 }

@@ -2,11 +2,17 @@ package com.adorsys_gis.skywings.flight.api.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "tickets")
 public class Ticket {
+    // Getters and Setters
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,15 +35,4 @@ public class Ticket {
     @Column(nullable = false)
     private String status;
 
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Passenger getPassenger() { return passenger; }
-    public void setPassenger(Passenger passenger) { this.passenger = passenger; }
-    public Flight getFlight() { return flight; }
-    public void setFlight(Flight flight) { this.flight = flight; }
-    public LocalDateTime getBookingDate() { return bookingDate; }
-    public void setBookingDate(LocalDateTime bookingDate) { this.bookingDate = bookingDate; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
 }

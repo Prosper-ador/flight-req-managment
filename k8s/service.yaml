@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: skywings-backend-service
+  labels:
+    app: skywings-backend
+spec:
+  selector:
+    app: skywings-backend # This matches the labels of your Deployment's pods
+  ports:
+    - protocol: TCP
+      port: 80 # The port clients will connect to on the Service
+      targetPort: 8080 # The port your container is listening on (EXPOSE 8080 in Dockerfile)
+  type: ClusterIP # Or NodePort / LoadBalancer depending on your needs

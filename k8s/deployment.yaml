@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skywings-backend-deployment
+  labels:
+    app: skywings-backend
+spec:
+  replicas: 2 # Number of instances (pods) you want to run
+  selector:
+    matchLabels:
+      app: skywings-backend
+  template:
+    metadata:
+      labels:
+        app: skywings-backend
+    spec:
+      containers:
+        - name: skywings-backend
+          image: prosperdock1/skywings-backend:v1.0.0 # Use your Docker Hub/GCR path if deploying to cloud: e.g., your_dockerhub_username/skywings-backend:v1.0.0
+          ports:
+            - containerPort: 8080 # Port your Spring Boot app listens on
+          env:
+            # Environment variables for your Spring Boot app
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://localhost:5432/skywings_db" # Replace with your actual database URL
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials # Name of the Kubernetes Secret
+                  key: username       # Key within the Secret for username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials # Name of the Kubernetes Secret
+                  key: password       # Key within the Secret for password
+            - name: SPRING_SECURITY_JWT_SECRET # From your SecurityConfig
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret # Name of the Kubernetes Secret
+                  key:  jwt-secret # Key within the Secret for the secret string
+            - name: SPRING_SECURITY_JWT_EXPIRATION # From your SecurityConfig
+              value: "3600000" # Expiration in milliseconds (1 hour) - value, not from secret
+          livenessProbe: # Checks if the container is running and healthy
+            httpGet:
+              path: /actuator/health # Requires Spring Boot Actuator
+              port: 8080
+            initialDelaySeconds: 60 # Give the app time to start
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe: # Checks if the container is ready to serve traffic
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30 # Give the app time to initialize components
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources: # Resource requests and limits for the container
+            requests:
+              memory: "216Mi"
+              cpu: "200m" # 0.2 CPU core
+            limits:
+              memory: "512Mi"
+              cpu: "400m" # 0.4 CPU core
