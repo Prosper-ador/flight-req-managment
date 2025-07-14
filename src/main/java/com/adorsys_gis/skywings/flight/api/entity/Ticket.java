@@ -18,7 +18,7 @@ public class Ticket {
     private Long id;
 
     @NotNull(message = "Passenger is mandatory")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "passenger_id", nullable = false)
     private Passenger passenger;
 

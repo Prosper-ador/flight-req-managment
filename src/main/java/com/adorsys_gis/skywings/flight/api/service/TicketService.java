@@ -6,9 +6,11 @@ import com.adorsys_gis.skywings.flight.api.entity.Flight;
 import com.adorsys_gis.skywings.flight.api.repository.TicketRepository;
 import com.adorsys_gis.skywings.flight.api.repository.PassengerRepository;
 import com.adorsys_gis.skywings.flight.api.repository.FlightRepository;
+import com.adorsys_gis.skywings.flight.api.repository.TicketSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -96,12 +98,29 @@ public class TicketService {
         logger.info("Ticket deleted successfully with ID: {}", id);
     }
 
-    public List<Ticket> searchTickets(String departure, String destination, LocalDateTime kickoff) {
-        logger.info("Searching tickets with departure: {}, destination: {}, kickoff: {}", departure, destination, kickoff);
-        if (departure == null || destination == null || kickoff == null) {
-            logger.error("Invalid search parameters: departure, destination, or kickoff is null");
-            throw new IllegalArgumentException("Search parameters must not be null");
+    public List<Ticket> searchTickets(
+            Long passengerId,
+            String departure,
+            String destination,
+            String status,
+            LocalDateTime kickoffFrom,
+            LocalDateTime kickoffTo
+    ) {
+        logger.info("Searching tickets with filters - passengerId: {}, departure: {}, destination: {}, status: {}, kickoffFrom: {}, kickoffTo: {}",
+                passengerId, departure, destination, status, kickoffFrom, kickoffTo);
+
+        Specification<Ticket> spec = TicketSpecification.filterTickets(
+                passengerId, departure, destination, status, kickoffFrom, kickoffTo
+        );
+
+        return ticketRepository.findAll(spec);
+    }
+
+    public List<Ticket> getAllTicketsForUser(String email, boolean isAdmin) {
+        if (isAdmin) {
+            return ticketRepository.findAll();
+        } else {
+            return ticketRepository.findByPassengerEmail(email);
         }
-        return ticketRepository.searchTickets(departure, destination, kickoff);
     }
 }
